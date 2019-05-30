@@ -30,6 +30,7 @@ sourcedir = src
 executable = blodwen
 --opts = "--partial-eval --cg-opt -O2"
 opts = "--partial-eval"
+pkgs = wasm
 
 main = Idris.Main
 

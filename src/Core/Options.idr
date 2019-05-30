@@ -127,12 +127,18 @@ public export
 data CG = Chez
         | Chicken
         | Racket
+        | Wasm
+        | TS
+        | Mir
 
 export
 Eq CG where
   Chez == Chez = True
   Chicken == Chicken = True
   Racket == Racket = True
+  Wasm == Wasm = True
+  TS == TS = True
+  Mir == Mir = True
   _ == _ = False
 
 export
@@ -140,17 +146,23 @@ TTC annot CG where
   toBuf b Chez = tag 0
   toBuf b Chicken = tag 1
   toBuf b Racket = tag 2
+  toBuf b Wasm = tag 3
+  toBuf b TS = tag 4
+  toBuf b Mir = tag 5
 
   fromBuf s b
       = case !getTag of
              0 => pure Chez
              1 => pure Chicken
              2 => pure Racket
+             3 => pure Wasm
+             4 => pure TS
+             5 => pure Mir
              _ => corrupt "CG"
 
 export
 availableCGs : List (String, CG)
-availableCGs = [("chez", Chez), ("chicken", Chicken), ("racket", Racket)]
+availableCGs = [("chez", Chez), ("chicken", Chicken), ("racket", Racket), ("wasm", Wasm), ("ts", TS), ("mir", Mir)]
 
 export
 getCG : String -> Maybe CG
